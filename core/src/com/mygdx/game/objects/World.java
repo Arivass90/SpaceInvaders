@@ -36,12 +36,12 @@ public class World {
         space.render(batch);
         ship.render(batch);
         alienArmy.render(batch);
-        lifes.draw(batch, "VIDAS: " + ship.getVida(), 320, WORLD_HEIGHT - 3);
+        lifes.draw(batch, "VIDAS: " + ship.getLife(), 320, WORLD_HEIGHT - 3);
         lifes.setColor(Color.RED);
-        score.draw(batch,"PUNTUACION: " + ship.getPuntuacion(), 5, WORLD_HEIGHT-3);
+        score.draw(batch,"PUNTUACION: " + ship.getScore(), 5, WORLD_HEIGHT-3);
         score.setColor(Color.CYAN);
 
-        if(ship.getVida()==0||ship.getVida()<0){
+        if(ship.getLife()==0||ship.getLife()<0){
             gameover.draw(batch, "GAME OVER",WORLD_WIDTH/2-45, WORLD_HEIGHT/2);
             gameover.setColor(Color.RED);
             alienArmy.speedX=0;
@@ -52,7 +52,7 @@ public class World {
 
     void update(float delta, Assets assets){
 
-        if(ship.vida>0){
+        if(ship.life >0){
         space.update(delta, assets);
         ship.update(delta, assets);
         alienArmy.update(delta, assets);
@@ -76,7 +76,7 @@ public class World {
             if (Intersector.overlaps(shootRectangle, shipRectangle)) {
                 ship.damage();
                 shoot.remove();
-                if (ship.vida==0){
+                if (ship.life ==0){
                     assets.gameOverSound.play();
                 }
 
@@ -95,7 +95,7 @@ public class World {
                         alien.kill();
                         shoot.remove();
                         assets.aliendieSound.play();
-                        ship.puntuacion=ship.getPuntuacion()+10;
+                        ship.score =ship.getScore()+10;
                     }
                 }
             }

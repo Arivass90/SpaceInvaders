@@ -15,32 +15,32 @@ public class Ship {
     Vector2 position;
 
 
-    public int getPuntuacion() {
-        return puntuacion;
+    public int getScore() {
+        return score;
     }
 
-    public void setPuntuacion(int puntuacion) {
-        this.puntuacion = puntuacion;
+    public void setScore(int score) {
+        this.score = score;
     }
 
-    int puntuacion=0;
 
     State state;
     float stateTime;
     float speed = 5;
+    int score = 0;
 
     TextureRegion frame;
 
     Weapon weapon;
 
-    public void setVida(int vida) {
-        this.vida = vida;
+    public void setLife(int life) {
+        this.life = life;
     }
 
-    int vida = 5;
+    int life = 5;
 
-    public int getVida(){
-        return vida;
+    public int getLife(){
+        return life;
     }
 
     Ship(int initialPosition){
@@ -121,6 +121,6 @@ public class Ship {
     }
 
     public void damage() {
-        vida--;
+        life--;
     }
 }
