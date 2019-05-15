@@ -6,13 +6,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Assets;
+import com.mygdx.game.Timer;
 
 public class World {
     Space space;
     Ship ship;
     AlienArmy alienArmy;
     BitmapFont lifes, gameover, score;
-
+    Timer timer = new Timer(6);
 
     int WORLD_WIDTH, WORLD_HEIGHT;
 
@@ -46,6 +47,27 @@ public class World {
             gameover.setColor(Color.RED);
             alienArmy.speedX=0;
             alienArmy.speedY=0;
+            timer.update(delta);
+            if (timer.check()){
+                resetGame(space,ship,alienArmy,assets,delta, batch);
+            }
+
+
+        }
+        // batch.end();
+
+        if(alienArmy.y <= 126){
+
+            gameover.draw(batch, "GAME OVER",WORLD_WIDTH/2-45, WORLD_HEIGHT/2);
+            alienArmy.speedX=0;
+            alienArmy.speedY=0;
+
+            timer.update(delta);
+            if (timer.check()){
+                resetGame(space,ship,alienArmy,assets,delta, batch);
+            }
+
+
         }
         batch.end();
     }
@@ -58,6 +80,20 @@ public class World {
         alienArmy.update(delta, assets);
         checkCollisions(assets);
         }
+    }
+
+    public void resetGame(Space space, Ship ship, AlienArmy alienArmy, Assets assets, Float delta, SpriteBatch batch){
+
+        ship.life = 5;
+        ship.score = 0;
+
+        score.draw(batch,"PUNTUACION: " + ship.getScore(), 5, WORLD_HEIGHT-3);
+        this.alienArmy = new AlienArmy(WORLD_WIDTH,WORLD_HEIGHT);
+
+        space.update(delta, assets);
+        ship.update(delta, assets);
+        alienArmy.update(delta, assets);
+
     }
 
     private void checkCollisions(Assets assets) {
